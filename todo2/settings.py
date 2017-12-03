@@ -25,7 +25,44 @@ SECRET_KEY = 'k7y+l+a4)i1+^nsejwmlvv##*wc52%02nm(-4&zblve9b57$ag'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1:8000', 
+    'http://localhost:4200/list', 
+    'http://localhost:4200', 
+    'localhost:4200', 
+    'localhost'
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:4200/list',
+    'http://localhost:4200',
+    'localhost:4200',
+    'localhost',
+    '127.0.0.1:8000'
+)
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT'
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)
 
 
 # Application definition
@@ -38,6 +75,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_todo2',
+    'corsheaders',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,6 +87,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',    
 )
 
 ROOT_URLCONF = 'todo2.urls'
