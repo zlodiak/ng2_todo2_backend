@@ -13,4 +13,5 @@ urlpatterns = [
   url(r'^remove_todos_completed$', views.remove_todos_completed, name='remove_todos_completed'),
 
   url(r'^create_marker$', views.create_marker, name='create_marker'),
+  url(r'^get_markers$', views.get_markers, name='get_markers'),
 ]

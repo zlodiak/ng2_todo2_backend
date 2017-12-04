@@ -24,7 +24,9 @@ class Todo(models.Model):
 
 class Marker(models.Model):
   todo = models.ForeignKey(Todo, verbose_name=u"Todo", blank=True, null=True,)
-  desc = models.CharField(max_length=300)
+  lat = models.CharField(default='0', max_length=20)
+  lng = models.CharField(default='0', max_length=20)
+  desc = models.TextField(max_length=255, blank=True, null=True)
   created_date = models.DateTimeField(default=timezone.now)
   published_date = models.DateTimeField(blank=True, null=True)
 

@@ -13,11 +13,6 @@ def users_list(request):
 
 
 def create_todo(request):
-	print('============');
-	print(request.POST['title'])
-	print(request.POST['user_id'])
-	print(request)
-
 	if (len(request.POST['title']) > 100) or (len(request.POST['title']) < 0):
 		request_status = '0'
 		error_id = '0'
@@ -61,6 +56,7 @@ def get_todos(request):
 
 	todos = Todo.objects.filter(user_id_id=user_id)
 	todos_serialized = serializers.serialize('json', todos)	
+
 	return JsonResponse(todos_serialized, safe=False) 
 
 
@@ -121,19 +117,28 @@ def remove_todos_completed(request):
 
 def create_marker(request):
 	todo_id = request.GET['todo_id']
+	lat = request.GET['lat']
+	lng = request.GET['lng']
 	print(todo_id)
+	print(lat)
+	print(lng)	
 
 	request_status = 1
 	error_id = ''
 	error_message = ''
 
-	todo = Todo.objects.get(id=todo_id)
-	print('todo')
-	print(todo)
+	# todo = Todo.objects.get(id=todo_id)
 	
-	m = Marker(desc='', todo_id=todo, published_date=timezone.now(), created_date=timezone.now(),)
+	m = Marker(lat=lat, lng=lng, desc='', todo_id=todo_id, published_date=timezone.now(), created_date=timezone.now(),)
 	m.save()
 
-	data = json.dumps({ 'request_status': request_status , 'error_id': error_id, 'error_message': error_message })
+	return JsonResponse({ 'id': m.pk }, safe=False) 	
 
-	return JsonResponse(data, safe=False) 	
+
+def get_markers(request):	       	
+	todo_id = request.GET['todo_id']
+
+	markers = Marker.objects.filter(todo_id=todo_id)
+	markers_serialized = serializers.serialize('json', markers)	
+	
+	return JsonResponse(markers_serialized, safe=False) 
